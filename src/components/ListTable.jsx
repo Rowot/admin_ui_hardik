@@ -126,7 +126,7 @@ function ListTable({ query }) {
     updateuserFiltered(newUserList.slice((currentpageNumber - 1) * (users_per_page), ((currentpageNumber - 1) * (users_per_page) + users_per_page)));
   }
 
-  function selectAllCheckbox(checked_or_not) {
+  function selectAllCheckbox(checked_or_not,event) {
     if (checked_or_not === true) {
       if ((userFiltered.length === 0) || ((userFiltered.length > 0) && (query_tracker !== "NO_query_update"))) {
 
@@ -137,6 +137,7 @@ function ListTable({ query }) {
       }
     } else if (checked_or_not === false) {
       set_is_checked([])
+
     }
 
   }
@@ -177,7 +178,7 @@ function ListTable({ query }) {
         }}>
           <thead>
             <tr style={{ textAlign: "center" }}>
-              <th><p><input type="checkbox" style={{ width: "25px", height: "25px" }} onChange={(event) => selectAllCheckbox(event.target.checked)} /></p></th>
+              <th><p><input type="checkbox" style={{ width: "25px", height: "25px" }} checked={isChecked.length===0?false:true} onChange={(event) => selectAllCheckbox(event.target.checked,event)} /></p></th>
               <th style={{ fontSize: "30px" }}>Name</th>
               <th style={{ fontSize: "30px" }}>Email</th>
               <th style={{ fontSize: "30px" }}>Role</th>
