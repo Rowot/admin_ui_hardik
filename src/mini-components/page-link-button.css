@@ -1,0 +1,26 @@
+.pageButton{
+    background-color: #8FBC8F;
+    border-radius: 40px;
+    height: 44px;
+    width:30px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-weight: 900;
+   position: relative;
+   bottom: 10px;
+   border-color:goldenrod;
+}
+
+
+.pageButton:hover {
+    color: white;
+    background-color:#DAA520;
+    border-color:red;
+  }
+
+  .pageButton:focus{
+    color: black;
+    background-color:white;
+    border-color:goldenrod;
+
+  }

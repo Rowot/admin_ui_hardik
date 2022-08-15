@@ -1,0 +1,6 @@
+#header-row{
+    margin: 3%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}

@@ -1,0 +1,16 @@
+.deleteMultiple{
+    margin:1%;
+    height: 50px;
+    width: auto;
+    background-color: #146EB4;
+    border-radius: 40px;
+    opacity: 0.8;
+    color: white;
+    position: absolute;
+    left:3%;
+    font-weight: 900;
+}
+
+.deleteMultiple:hover{
+    background-color: red;
+}
