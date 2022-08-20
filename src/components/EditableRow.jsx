@@ -7,7 +7,7 @@ export default function EditableRow({edit_row_data,rowEditChange,rowEditSave,row
     return(
         <tr key={`Edit${record.id}`} >
         <td key={`Edit Col1`}><p>Editing in Progress</p></td>
-            <td key={`Edit Col2`}><input autoFocus style={{textAlign: "center",backgroundColor : "#FFE4E1" ,
+            <td key={`Edit Col2`}><input autoFocus style={{textAlign: "center",backgroundColor : "#FFE4E1" ,fontSize:"16px",
             height:"50px",
             width:"95%"}}
                     type="text"
@@ -41,11 +41,10 @@ export default function EditableRow({edit_row_data,rowEditChange,rowEditSave,row
        backgroundColor:"#FFE4E1",
        border:"none",
        color:"#191970"
-       }} onClick={(event)=>rowEditSave(event)}><FaSave/></button><button style={{fontSize:"24px",
-       backgroundColor:"#FFE4E1",
-       border:"none",
-       color:"#E50914"
-       }} onClick={(event)=>rowEditCancel(event)}><ImCross/></button></td>
+       }} onClick={(event)=>rowEditSave(event)}><FaSave/></button>
+       
+      
+<button style={{fontSize:"24px",backgroundColor:"#FFE4E1",border:"none",color:"#E50914"}} onClick={(e)=>rowEditCancel(e)}><ImCross/></button></td>
         </tr>
     )
 }

@@ -11,11 +11,11 @@ It will also contain logic to show the right number of page links as the constra
 
 function Footer({ currentpage, updatefilterCount, userCount, deleteSelectedRecords }) {
 
-    return (
-        <div className="Footer">
+    return (userCount>0?
+        (<div className="Footer">
             <DeleteSelected deleteSelectedRecords={deleteSelectedRecords} />
             <TogglePages currentpage={currentpage} updatefilterCount={updatefilterCount} userCount={userCount} />
-        </div>
+        </div>):(<h1>No Records Found</h1>)
     )
 }
 

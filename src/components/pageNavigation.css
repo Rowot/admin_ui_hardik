@@ -1,0 +1,9 @@
+
+.navigation:hover {
+    opacity: 0.5;
+    
+  } 
+
+  .navigation:active{
+    background-color: red;
+  }

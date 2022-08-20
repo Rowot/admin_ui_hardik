@@ -75,6 +75,7 @@ function ListTable({ query }) {
 
   function rowEditClick(event, record) {
     event.preventDefault();
+    set_is_checked([])
     updateEditedRecord_id(record.id);
     const oldRowValues = {
       name: record.name,
@@ -114,19 +115,38 @@ function ListTable({ query }) {
 
   function rowEditCancel(event) {
     event.preventDefault();
-    updateEditedRecord_id(null);
+        updateEditedRecord_id(null);
+  
   }
 
   function rowDelete(event, deleted_record_id) {
     event.preventDefault();
+    set_is_checked([])
     const newUserList = [...userList];
     const index = userList.findIndex((record) => record.id == deleted_record_id);
     newUserList.splice(index, 1);
     updateUserList(newUserList);
-    updateuserFiltered(newUserList.slice((currentpageNumber - 1) * (users_per_page), ((currentpageNumber - 1) * (users_per_page) + users_per_page)));
+
+    filteredUsers =
+    newUserList.filter((entry) => {
+      if (query === "")
+        return entry;
+
+
+      if (entry.name.toLowerCase().indexOf(query.toLowerCase()) > -1)
+        return entry;
+
+      if (entry.email.toLowerCase().indexOf(query.toLowerCase()) > -1)
+        return entry;
+
+      if (entry.role.toLowerCase().indexOf(query.toLowerCase()) > -1)
+        return entry;
+    })
+    //newUserList.filter(()
+   updateuserFiltered(filteredUsers.slice((currentpageNumber - 1) * (users_per_page), ((currentpageNumber - 1) * (users_per_page) + users_per_page)));
   }
 
-  function selectAllCheckbox(checked_or_not,event) {
+  function selectAllCheckbox(checked_or_not) {
     if (checked_or_not === true) {
       if ((userFiltered.length === 0) || ((userFiltered.length > 0) && (query_tracker !== "NO_query_update"))) {
 
@@ -156,19 +176,32 @@ function ListTable({ query }) {
   }
 
   function deleteSelectedRecords(event) {
-
+    event.preventDefault();
+if(isChecked.length==0)return;
     let newUserList = [...userList];
-    isChecked.forEach((record_id) => {
-      const index = newUserList.findIndex((record) => record.id == record_id);
-      newUserList.splice(index, 1);
-      updateUserList(newUserList);
-      updateuserFiltered(newUserList.slice((currentpageNumber - 1) * (users_per_page), ((currentpageNumber - 1) * (users_per_page) + users_per_page)));
+   newUserList=newUserList.filter((record)=>((isChecked).includes(record.id))==false)
+   updateUserList(newUserList)
+   filteredUsers =
+    newUserList.filter((entry) => {
+      if (query === "")
+        return entry;
 
 
+      if (entry.name.toLowerCase().indexOf(query.toLowerCase()) > -1)
+        return entry;
+
+      if (entry.email.toLowerCase().indexOf(query.toLowerCase()) > -1)
+        return entry;
+
+      if (entry.role.toLowerCase().indexOf(query.toLowerCase()) > -1)
+        return entry;
     })
-    set_is_checked([])
-  }
-
+   updateuserFiltered(filteredUsers.slice((currentpageNumber - 1) * (users_per_page), ((currentpageNumber - 1) * (users_per_page) + users_per_page)));
+   //updatePageNumber(1);
+   set_is_checked([])
+  
+    }
+    
   return (
     <div>
       <form >
@@ -178,7 +211,7 @@ function ListTable({ query }) {
         }}>
           <thead>
             <tr style={{ textAlign: "center" }}>
-              <th><p><input type="checkbox" style={{ width: "25px", height: "25px" }} checked={isChecked.length===0?false:true} onChange={(event) => selectAllCheckbox(event.target.checked,event)} /></p></th>
+              <th><p><input type="checkbox" style={{ width: "25px", height: "25px" }} checked={isChecked.length===0?false:null} onChange={(event) => selectAllCheckbox(event.target.checked,event)} /></p></th>
               <th style={{ fontSize: "30px" }}>Name</th>
               <th style={{ fontSize: "30px" }}>Email</th>
               <th style={{ fontSize: "30px" }}>Role</th>
@@ -188,11 +221,11 @@ function ListTable({ query }) {
 
           <tbody >
             {
-              query_tracker === "NO_query_update" ? userFiltered.map((record) =>
-                <Fragment>{edited_record_id == record.id ? <EditableRow record={record} edit_row_data={edit_row_data} rowEditChange={rowEditChange} rowEditSave={rowEditSave} /> : <ReadOnlyRow rowEditClick={rowEditClick} record={record} rowDelete={rowDelete} handleCheckBox={handleCheckBox} deleteSelectedRecords={deleteSelectedRecords} isChecked={isChecked} />}</Fragment>
+              query_tracker === "NO_query_update" ? userFiltered.map((record,index) =>
+                <Fragment>{edited_record_id == record.id ? <EditableRow key={record.id} record={record} edit_row_data={edit_row_data} rowEditChange={rowEditChange} rowEditSave={rowEditSave}rowEditCancel={rowEditCancel}/> : <ReadOnlyRow key={record.id} rowEditClick={rowEditClick} record={record} rowDelete={rowDelete} handleCheckBox={handleCheckBox} deleteSelectedRecords={deleteSelectedRecords} isChecked={isChecked} />}</Fragment>
 
-              ) : initial_page_filter.map((record) =>
-                <Fragment>{edited_record_id == record.id ? <EditableRow record={record} edit_row_data={edit_row_data} rowEditChange={rowEditChange} rowEditSave={rowEditSave} rowEditCancel={rowEditCancel} /> : <ReadOnlyRow rowEditClick={rowEditClick} record={record} rowDelete={rowDelete} handleCheckBox={handleCheckBox} deleteSelectedRecords={deleteSelectedRecords} isChecked={isChecked} />}</Fragment>
+              ) : initial_page_filter.map((record,index) =>
+                <Fragment>{edited_record_id == record.id ? <EditableRow key={record.id} record={record} edit_row_data={edit_row_data} rowEditChange={rowEditChange} rowEditSave={rowEditSave} rowEditCancel={rowEditCancel} /> : <ReadOnlyRow key={record.id} rowEditClick={rowEditClick} record={record} rowDelete={rowDelete} handleCheckBox={handleCheckBox} deleteSelectedRecords={deleteSelectedRecords} isChecked={isChecked} />}</Fragment>
               )
 
             }

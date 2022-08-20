@@ -11,16 +11,11 @@
    border-color:goldenrod;
 }
 
-
 .pageButton:hover {
-    color: white;
-    background-color:#DAA520;
-    border-color:red;
-  }
+    opacity: 0.5;
+    
+  } 
 
-  .pageButton:focus{
-    color: black;
-    background-color:white;
-    border-color:goldenrod;
-
+  .pageButton:active{
+    background-color: red;
   }

@@ -1,10 +1,11 @@
 import React from "react";
 import { FaTrash } from "react-icons/fa";
+import "./navigational.css"
 
 
 export default function RowDelete({ record, rowDelete }) {
     return (
-        <button style={{
+        <button className="navigation" style={{
             fontSize: "24px",
             backgroundColor: "#FFE4E1",
             border: "none",
