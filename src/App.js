@@ -8,19 +8,18 @@ import { useState } from 'react';
 
 function App() {
 
-  const [query,updatequery] = useState("");
- 
-  function filter_user_count(){
+  const [query, updatequery] = useState("");
+
+  function filter_user_count() {
 
   }
-  
-  
+
+
   return (
     <div className='App'>
-
-      <SearchBar  updatequery={updatequery} />
-      <ListTable filter_user_count={filter_user_count} query={query}/>
-      </div>
+    <SearchBar updatequery={updatequery} />
+    <ListTable filter_user_count={filter_user_count} query={query} />
+    </div>
   );
 }
 

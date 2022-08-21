@@ -30,7 +30,7 @@ export default function TogglePages({ updatefilterCount, userCount, currentpage 
 
 
     return (
-       <div style={{ position: "relative" }}>
+       <div className="togglepages" style={{ position: "relative" }}>
        <FirstPage className="navigation" updatefilterCount={updatefilterCount} currentpage={currentpage} Num_of_pages={arr_page_count.length} />
        <PrevPage className="navigation" updatefilterCount={updatefilterCount} currentpage={currentpage} Num_of_pages={arr_page_count.length} />
        {(arr_page_count.map((entry) => <PageButton  currentpage={currentpage} updatefilterCount={updatefilterCount} userCount={userCount} key={entry} pageNum={entry} />))}

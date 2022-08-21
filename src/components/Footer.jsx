@@ -13,8 +13,8 @@ function Footer({ currentpage, updatefilterCount, userCount, deleteSelectedRecor
 
     return (userCount>0?
         (<div className="Footer">
-            <DeleteSelected deleteSelectedRecords={deleteSelectedRecords} />
-            <TogglePages currentpage={currentpage} updatefilterCount={updatefilterCount} userCount={userCount} />
+            <DeleteSelected className='deleteSelected' deleteSelectedRecords={deleteSelectedRecords} />
+            <TogglePages className='togglepages' currentpage={currentpage} updatefilterCount={updatefilterCount} userCount={userCount} />
         </div>):(<h1>No Records Found</h1>)
     )
 }

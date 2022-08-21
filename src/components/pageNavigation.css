@@ -7,3 +7,72 @@
   .navigation:active{
     background-color: red;
   }
+
+  .togglepages{
+    display:inline-flex;
+    margin: 3%;
+    
+    margin-left: 15%;
+    margin-right: 25%;
+  }
+
+  
+  @media (max-width:450px){
+    .togglepages{
+      display:inline-flex;
+      margin: 3%;
+      margin-left: 50px;
+    }
+  }
+
+  @media (min-width:250px) and (max-width:350px) {
+    .togglepages{
+      display:inline-flex;
+      margin: 3%;
+      margin-left: 150px;
+    }
+  }
+
+  @media (min-width:350px) and (max-width:450px) {
+    .togglepages{
+      display:inline-flex;
+      margin: 3%;
+      margin-left: 100px;
+    }
+  }
+
+ 
+
+  @media (min-width:560px) and (max-width:680px) {
+    .togglepages{
+      display:inline-flex;
+      margin: 3%;
+      margin-top: 6%;
+    }
+  }
+
+  @media (min-width:680px) and (max-width:800px) {
+    .togglepages{
+      display:inline-flex;
+      margin: 3%;
+      margin-top: 5%;
+    }
+  }
+
+  @media (min-width:800px) and (max-width:1076px) {
+    .togglepages{
+      display:inline-flex;
+      margin: 3%;
+      margin-top: 4%;
+      margin-right: 300px;
+    }
+  }
+
+  @media (min-width:1076px) {
+    .togglepages{
+      display:inline-flex;
+      margin: 3%;
+      margin-top: 2.3%;
+      margin-right: 400px;
+    }
+  }

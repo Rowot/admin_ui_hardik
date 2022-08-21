@@ -1,6 +1,6 @@
 
 import { React, Fragment } from "react";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import Footer from './Footer';
 import axios from "axios";
 import ReadOnlyRow from "./ReadOnlyRow";
@@ -115,8 +115,8 @@ function ListTable({ query }) {
 
   function rowEditCancel(event) {
     event.preventDefault();
-        updateEditedRecord_id(null);
-  
+    updateEditedRecord_id(null);
+
   }
 
   function rowDelete(event, deleted_record_id) {
@@ -128,22 +128,28 @@ function ListTable({ query }) {
     updateUserList(newUserList);
 
     filteredUsers =
-    newUserList.filter((entry) => {
-      if (query === "")
-        return entry;
+      newUserList.filter((entry) => {
+        if (query === "")
+          return entry;
 
 
-      if (entry.name.toLowerCase().indexOf(query.toLowerCase()) > -1)
-        return entry;
+        if (entry.name.toLowerCase().indexOf(query.toLowerCase()) > -1)
+          return entry;
 
-      if (entry.email.toLowerCase().indexOf(query.toLowerCase()) > -1)
-        return entry;
+        if (entry.email.toLowerCase().indexOf(query.toLowerCase()) > -1)
+          return entry;
 
-      if (entry.role.toLowerCase().indexOf(query.toLowerCase()) > -1)
-        return entry;
-    })
-    //newUserList.filter(()
-   updateuserFiltered(filteredUsers.slice((currentpageNumber - 1) * (users_per_page), ((currentpageNumber - 1) * (users_per_page) + users_per_page)));
+        if (entry.role.toLowerCase().indexOf(query.toLowerCase()) > -1)
+          return entry;
+      })
+    
+    if ((userFiltered.length == 1)) {
+      updateuserFiltered(filteredUsers.slice(0, users_per_page));
+      updatePageNumber(1);
+      return;
+    }
+    else updateuserFiltered(filteredUsers.slice((currentpageNumber - 1) * (users_per_page), ((currentpageNumber - 1) * (users_per_page) + users_per_page)));
+
   }
 
   function selectAllCheckbox(checked_or_not) {
@@ -177,31 +183,38 @@ function ListTable({ query }) {
 
   function deleteSelectedRecords(event) {
     event.preventDefault();
-if(isChecked.length==0)return;
+    if (isChecked.length == 0) return;
     let newUserList = [...userList];
-   newUserList=newUserList.filter((record)=>((isChecked).includes(record.id))==false)
-   updateUserList(newUserList)
-   filteredUsers =
-    newUserList.filter((entry) => {
-      if (query === "")
-        return entry;
+    newUserList = newUserList.filter((record) => ((isChecked).includes(record.id)) == false)
+    updateUserList(newUserList)
+    filteredUsers =
+      newUserList.filter((entry) => {
+        if (query === "")
+          return entry;
 
 
-      if (entry.name.toLowerCase().indexOf(query.toLowerCase()) > -1)
-        return entry;
+        if (entry.name.toLowerCase().indexOf(query.toLowerCase()) > -1)
+          return entry;
 
-      if (entry.email.toLowerCase().indexOf(query.toLowerCase()) > -1)
-        return entry;
+        if (entry.email.toLowerCase().indexOf(query.toLowerCase()) > -1)
+          return entry;
 
-      if (entry.role.toLowerCase().indexOf(query.toLowerCase()) > -1)
-        return entry;
-    })
-   updateuserFiltered(filteredUsers.slice((currentpageNumber - 1) * (users_per_page), ((currentpageNumber - 1) * (users_per_page) + users_per_page)));
-   //updatePageNumber(1);
-   set_is_checked([])
-  
+        if (entry.role.toLowerCase().indexOf(query.toLowerCase()) > -1)
+          return entry;
+      })
+    if ((userFiltered.length == isChecked.length)) {
+      updateuserFiltered(filteredUsers.slice(0, users_per_page));
+      updatePageNumber(1);
+      set_is_checked([])
+      return;
     }
-    
+
+    else updateuserFiltered(filteredUsers.slice((currentpageNumber - 1) * (users_per_page), ((currentpageNumber - 1) * (users_per_page) + users_per_page)));
+
+    set_is_checked([])
+
+  }
+
   return (
     <div>
       <form >
@@ -211,7 +224,7 @@ if(isChecked.length==0)return;
         }}>
           <thead>
             <tr style={{ textAlign: "center" }}>
-              <th><p><input type="checkbox" style={{ width: "25px", height: "25px" }} checked={isChecked.length===0?false:null} onChange={(event) => selectAllCheckbox(event.target.checked,event)} /></p></th>
+              <th><p><input type="checkbox" style={{ width: "25px", height: "25px" }} checked={isChecked.length === 0 ? false : null} onChange={(event) => selectAllCheckbox(event.target.checked, event)} /></p></th>
               <th style={{ fontSize: "30px" }}>Name</th>
               <th style={{ fontSize: "30px" }}>Email</th>
               <th style={{ fontSize: "30px" }}>Role</th>
@@ -221,10 +234,10 @@ if(isChecked.length==0)return;
 
           <tbody >
             {
-              query_tracker === "NO_query_update" ? userFiltered.map((record,index) =>
-                <Fragment>{edited_record_id == record.id ? <EditableRow key={record.id} record={record} edit_row_data={edit_row_data} rowEditChange={rowEditChange} rowEditSave={rowEditSave}rowEditCancel={rowEditCancel}/> : <ReadOnlyRow key={record.id} rowEditClick={rowEditClick} record={record} rowDelete={rowDelete} handleCheckBox={handleCheckBox} deleteSelectedRecords={deleteSelectedRecords} isChecked={isChecked} />}</Fragment>
+              query_tracker === "NO_query_update" ? userFiltered.map((record, index) =>
+                <Fragment>{edited_record_id == record.id ? <EditableRow key={record.id} record={record} edit_row_data={edit_row_data} rowEditChange={rowEditChange} rowEditSave={rowEditSave} rowEditCancel={rowEditCancel} /> : <ReadOnlyRow key={record.id} rowEditClick={rowEditClick} record={record} rowDelete={rowDelete} handleCheckBox={handleCheckBox} deleteSelectedRecords={deleteSelectedRecords} isChecked={isChecked} />}</Fragment>
 
-              ) : initial_page_filter.map((record,index) =>
+              ) : initial_page_filter.map((record, index) =>
                 <Fragment>{edited_record_id == record.id ? <EditableRow key={record.id} record={record} edit_row_data={edit_row_data} rowEditChange={rowEditChange} rowEditSave={rowEditSave} rowEditCancel={rowEditCancel} /> : <ReadOnlyRow key={record.id} rowEditClick={rowEditClick} record={record} rowDelete={rowDelete} handleCheckBox={handleCheckBox} deleteSelectedRecords={deleteSelectedRecords} isChecked={isChecked} />}</Fragment>
               )
 

@@ -7,7 +7,7 @@
     margin-right: 10px;
     font-weight: 900;
    position: relative;
-   bottom: 10px;
+   bottom: 6px;
    border-color:goldenrod;
 }
 
@@ -19,3 +19,5 @@
   .pageButton:active{
     background-color: red;
   }
+
+  
